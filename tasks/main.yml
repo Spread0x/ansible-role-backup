@@ -32,6 +32,15 @@
     job: "{{ backup_path }}/backup.sh"
     state: "{{ backup_cron_job_state }}"
 
+- name: Configure random backup cron job.
+  cron:
+    name: "Random backup cron job"
+    minute: "{{ backup_minute }}"
+    hour: "{{ backup_hour | random(1, 12) }}"
+    user: "{{ backup_user }}"
+    job: "{{ backup_path }}/backup.sh"
+    state: "{{ backup_cron_job_state }}"
+
 - name: Add backup remote host key to server.
   known_hosts:
     path: "/etc/ssh/ssh_known_hosts"
